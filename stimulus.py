@@ -28,7 +28,7 @@ class Stimulus:
 
         # end of trial epochs
         eodead = par['dead_time']//par['dt']
-        eof = (par['dead_time']+par['fix_time'])//par['dt']
+        eof = (par['dead_time']+par['fix_time'])//par['dt']    
         eos = [(par['dead_time']+par['fix_time']+ n*par['delay_time'] + (n+1)*par['sample_time'])//par['dt'] for n in range(num_pulses)]
         eods = [(par['dead_time']+par['fix_time']+(n+1)*(par['sample_time']+par['delay_time']))//par['dt'] for n in range(num_pulses-1)]
         eods.append(eos[-1])
@@ -170,7 +170,8 @@ class Stimulus:
                 trial_info['delay'][:,-1] = 500
             else:
                 trial_info['delay'][:,:par['num_max_pulse']-1] = np.random.choice([100,200,300],size=(par['batch_train_size'],par['num_max_pulse']-1))
-                trial_info['delay'][:, -1] = np.random.choice([300,500,700], size=par['batch_train_size'])
+                trial_info['delay'][:, -1] = np.random.choice([500,700], size=par['batch_train_size'])
+            trial_info['delay'][:,2] = trial_info['delay'][:,-1]
         else:
             trial_info['delay'][:,:par['num_max_pulse']-1] = par['delay_time']
             trial_info['delay'][:,-1] = par['long_delay_time']
